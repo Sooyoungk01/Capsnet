@@ -81,7 +81,7 @@ class CapsLayer(object):
             return(capsules)
 
 
-def routing(input, b_IJ, num_outputs=10, num_dims=16):
+def routing(input, b_IJ, num_outputs=7, num_dims=16):
     ''' The routing algorithm.
 
     Args:

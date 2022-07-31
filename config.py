@@ -1,4 +1,4 @@
-import tensorflow as tf
+import tensorflow.compat.v1 as tf
 
 flags = tf.app.flags
 
@@ -25,7 +25,7 @@ flags.DEFINE_float('regularization_scale', 0.392, 'regularization coefficient fo
 ############################
 #   environment setting    #
 ############################
-flags.DEFINE_string('dataset', 'mnist', 'The name of dataset [mnist, fashion-mnist')
+flags.DEFINE_string('dataset', 'mnist', 'The name of dataset [mnist, fashion-mnist, my-data')
 flags.DEFINE_boolean('is_training', True, 'train or predict phase')
 flags.DEFINE_integer('num_threads', 8, 'number of threads of enqueueing examples')
 flags.DEFINE_string('logdir', 'logdir', 'logs directory')
