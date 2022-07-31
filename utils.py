@@ -126,16 +126,26 @@ def load_mydata(batch_size, is_training=True):
 
         return trX, trY, num_tr_batch, valX, valY, num_val_batch
     else:
-        fd = open(os.path.join(path, 't10k-images-idx3-ubyte'))
-        loaded = np.fromfile(file=fd, dtype=np.uint8)
-        teX = loaded[16:].reshape((10000, 28, 28, 1)).astype(np.float)
+        validation_datagen = ImageDataGenerator(rescale=1.0 / 255)
 
-        fd = open(os.path.join(path, 't10k-labels-idx1-ubyte'))
-        loaded = np.fromfile(file=fd, dtype=np.uint8)
-        teY = loaded[8:].reshape((10000)).astype(np.int32)
+        ValidationX = validation_datagen.flow_from_directory(path + "test",
+                                                             target_size=(28, 28),
+                                                             color_mode="grayscale",
+                                                             batch_size=batch_size,
+                                                             class_mode='categorical',
+                                                             shuffle=False)
+        valX, valY = [], []
+        for i in range(ValidationX.n // ValidationX.batch_size):
+            a, b = ValidationX.next()
+            valX.extend(a)
+            valY.extend(b)
 
-        num_te_batch = 10000 // batch_size
-        return teX / 255., teY, num_te_batch
+        valX = np.asarray(valX)
+        valY = np.asarray(valY)
+
+        num_val_batch = ValidationX.n // ValidationX.batch_size
+
+        return valX, valY, num_val_batch
 
 
 def load_data(dataset, batch_size, is_training=True, one_hot=False):
