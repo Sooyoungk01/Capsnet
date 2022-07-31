@@ -3,7 +3,7 @@ import sys
 import numpy as np
 import tensorflow as tf
 from tqdm import tqdm
-
+from absl import app
 from config import cfg
 from utils import load_data
 from capsNet import CapsNet
@@ -125,4 +125,4 @@ def main(_):
         evaluation(model, sv, num_label)
 
 if __name__ == "__main__":
-    tf.app.run()
+    app.run()
